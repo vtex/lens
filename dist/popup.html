@@ -1,0 +1,41 @@
+<!doctype html>
+
+<link rel="stylesheet" href="lib/pure.min.css">
+<link rel="stylesheet" href="popup.css">
+
+<div id="mainPopup">
+
+  <h1>Lens</h1>
+
+  <section id="env">
+    <h2>Environments</h2>
+    <ul class="no-bullets">
+      <li><a class="pure-button pure-button-primary block env-change" data-env="vtexcommerce" href="#">Ir para vtexcommerce</a></li>
+      <li><a class="pure-button pure-button-secondary block env-change" data-env="vtexcommercestable" href="#">Ir para vtexcommercestable</a></li>
+      <li><a class="pure-button pure-button-warning block env-change" data-env="vtexcommercebeta" href="#">Ir para vtexcommercebeta</a></li>
+      <li><a class="pure-button block env-change" data-env="vtexcommercelocal" href="#">Ir para vtexlocal</a></li>
+    </ul>
+  </section>
+
+  <section id="cookies">
+    <h2>Cookies (tools.html)</h2>
+
+    <ul>
+      <li id="cjs" class="cookie" data-cookie-name="SAFEMode">
+        Client JavaScript: <span class="status"></span>.
+        <a class="action enable" href="#">Click to enable.</a>
+        <a class="action disable" href="#">Click to disable.</a>
+      </li>
+      <li id="sfe" class="cookie" data-cookie-name="ShowFullError">
+        Show Friendly Error: <span class="status"></span>.
+        <a class="action enable" href="#">Click to enable.</a>
+        <a class="action disable" href="#">Click to disable.</a>
+      </li>
+    </ul>
+  </section>
+
+</div>
+
+<script src="lib/jquery.min.js"></script>
+<script src="lib/moment.min.js"></script>
+<script src="popup.js"></script>
