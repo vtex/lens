@@ -10,7 +10,7 @@
     });
   };
 
-  changeVtexEnv = function(env) {
+  changeVtexEnv = function(env, callback) {
     return getTab(function(tab) {
       var a, parts, siteName, url;
       a = document.createElement("a");
@@ -24,14 +24,17 @@
         siteName = "UNKNOWN";
       }
       url = a.protocol + "//" + siteName + "." + env + ".com.br" + a.pathname + a.search + a.hash;
-      return chrome.tabs.update(tab.id, {
+      chrome.tabs.update(tab.id, {
         url: url
       });
+      return callback();
     });
   };
 
   $(".env-change").on("click", function() {
-    return changeVtexEnv($(this).data("env"));
+    return changeVtexEnv($(this).data("env"), function() {
+      return window.close();
+    });
   });
 
   refresh = function() {

@@ -2,7 +2,7 @@ getTab = (callback) ->
 	chrome.tabs.query {active: true, currentWindow: true}, (tabs) ->
 		callback tabs[0]
 
-changeVtexEnv = (env) ->
+changeVtexEnv = (env, callback) ->
 	getTab (tab) ->
 		a = document.createElement("a")
 		a.href = tab.url
@@ -16,9 +16,12 @@ changeVtexEnv = (env) ->
 		url = a.protocol + "//" + siteName + "." + env + ".com.br" + a.pathname + a.search + a.hash
 		chrome.tabs.update tab.id, url: url
 
+		callback()
+
 
 $(".env-change").on "click", ->
-	changeVtexEnv $(this).data("env")
+	changeVtexEnv $(this).data("env"), ->
+		window.close()
 
 refresh = ->
 	getTab (tab) ->
