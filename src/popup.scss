@@ -3,13 +3,50 @@
     padding-right: 10px;
     width: 400px;
     font-family: Helvetica, Ubuntu, Arial, sans-serif;
+    word-wrap: break-word;
 }
+
 h1 {
     font-size: 2em;
 }
 
 .block {
     display: block;
+}
+
+.no-bullets {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+  li {
+    padding-top: 5px;
+    margin-top: 5px;
+  }
+}
+
+#cookies {
+
+  .status.unknown {
+    color: gray;
+  }
+
+  .status.enabled {
+    color: rgb(28, 184, 65);
+
+    ~ .action.enable {
+      display: none;
+    }
+  }
+
+  .status.disabled {
+    color: rgb(202, 60, 60);
+
+    ~ .action.disable {
+      display: none;
+    }
+  }
+
 }
 
 .pure-button-success,
