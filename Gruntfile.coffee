@@ -1,7 +1,9 @@
 module.exports = (grunt) ->
 	pkg = grunt.file.readJSON('package.json')
+	manifest = grunt.file.readJSON('manifest.json')
+
 	replacements =
-		'\<\!\-\- VERSION \-\-\>' : pkg.version
+		'\<\!\-\- VERSION \-\-\>' : manifest.version
 
 	grunt.initConfig
 		relativePath: ''
