@@ -1,13 +1,13 @@
 #mainPopup {
-    padding-left: 10px;
-    padding-right: 10px;
-    width: 400px;
-    font-family: Helvetica, Ubuntu, Arial, sans-serif;
-    word-wrap: break-word;
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 400px;
+  font-family: Helvetica, Ubuntu, Arial, sans-serif;
+  word-wrap: break-word;
 }
 
 h1 {
-    font-size: 2em;
+  font-size: 2em;
 }
 
 #version {
@@ -17,13 +17,13 @@ h1 {
 }
 
 .block {
-    display: block;
+  display: block;
 }
 
 .no-bullets {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 
   li {
     padding-top: 5px;
@@ -59,23 +59,23 @@ h1 {
 .pure-button-error,
 .pure-button-warning,
 .pure-button-secondary {
-    color: white;
-    border-radius: 4px;
-    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  color: white;
+  border-radius: 4px;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
 }
 
 .pure-button-success {
-    background: rgb(28, 184, 65);
+  background: rgb(28, 184, 65);
 }
 
 .pure-button-error {
-    background: rgb(202, 60, 60);
+  background: rgb(202, 60, 60);
 }
 
 .pure-button-warning {
-    background: rgb(223, 117, 20);
+  background: rgb(223, 117, 20);
 }
 
 .pure-button-secondary {
-    background: rgb(66, 184, 221);
+  background: rgb(66, 184, 221);
 }
