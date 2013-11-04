@@ -1,4 +1,4 @@
-lens
+Lens
 ====
 
 VTEX Development Tools as Chrome Extension
