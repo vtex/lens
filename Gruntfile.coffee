@@ -1,5 +1,8 @@
 module.exports = (grunt) ->
 	pkg = grunt.file.readJSON('package.json')
+	replacements =
+		'\<\!\-\- VERSION \-\-\>' : pkg.version
+
 	grunt.initConfig
 		relativePath: ''
 
@@ -33,6 +36,13 @@ module.exports = (grunt) ->
 					ext: '.css'
 				]
 
+		'string-replace':
+			version:
+				options:
+					replacements: ({'pattern': new RegExp(key, "g"), 'replacement': value} for key, value of replacements)
+				files:
+					'build/popup.html': 'build/popup.html'
+
 		watch:
 			main:
 				options:
@@ -48,6 +58,6 @@ module.exports = (grunt) ->
 
 	grunt.loadNpmTasks name for name of pkg.devDependencies when name[0..5] is 'grunt-'
 
-	grunt.registerTask 'make', ['clean', 'concurrent:transform']
+	grunt.registerTask 'make', ['clean', 'concurrent:transform', 'string-replace']
 	grunt.registerTask 'default', ['make', 'watch:main']
 	grunt.registerTask 'dist', ['make', 'zip']
