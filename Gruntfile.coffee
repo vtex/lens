@@ -40,6 +40,9 @@ module.exports = (grunt) ->
 				files: ['src/**/*.html', 'src/**/*.coffee', 'src/**/*.js', 'src/**/*.less', 'src/**/*.css']
 				tasks: ['make']
 
+		zip:
+			'dist/lens.zip': ['manifest.json', 'build/**/*', 'icons/**/*', '_locales/**/*']
+
 		concurrent:
 			transform: ['copy:main', 'coffee', 'sass']
 
@@ -47,3 +50,4 @@ module.exports = (grunt) ->
 
 	grunt.registerTask 'make', ['clean', 'concurrent:transform']
 	grunt.registerTask 'default', ['make', 'watch:main']
+	grunt.registerTask 'dist', ['make', 'zip']
