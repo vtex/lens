@@ -4,14 +4,14 @@ module.exports = (grunt) ->
 		relativePath: ''
 
 		clean:
-			main: ['dist']
+			main: ['build', 'dist']
 
 		copy:
 			main:
 				expand: true
 				cwd: 'src/'
 				src: ['**', '!**/*.coffee', '!**/*.less', '!**/*.scss', '!**/*.sass']
-				dest: 'dist/<%= relativePath %>'
+				dest: 'build/<%= relativePath %>'
 
 		coffee:
 			main:
@@ -19,7 +19,7 @@ module.exports = (grunt) ->
 					expand: true
 					cwd: 'src/'
 					src: ['**/*.coffee']
-					dest: 'dist/<%= relativePath %>/'
+					dest: 'build/<%= relativePath %>/'
 					ext: '.js'
 				]
 
@@ -29,7 +29,7 @@ module.exports = (grunt) ->
 					expand: true
 					cwd: 'src/'
 					src: ['**/*.scss', '**/*.sass']
-					dest: 'dist/<%= relativePath %>/'
+					dest: 'build/<%= relativePath %>/'
 					ext: '.css'
 				]
 
