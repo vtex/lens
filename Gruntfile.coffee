@@ -37,7 +37,7 @@ module.exports = (grunt) ->
 			main:
 				options:
 					livereload: true
-				files: ['src/**/*.html', 'src/**/*.coffee', 'src/**/*.js', 'src/**/*.less', 'src/**/*.css']
+				files: ['src/**/*', 'icons/**/*', '_locales/**/*']
 				tasks: ['make']
 
 		zip:
