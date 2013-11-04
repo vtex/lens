@@ -1,45 +1,41 @@
 $(document).ready ->
 	chrome.tabs.query {active: true, currentWindow: true}, (tabs) ->
 		tab = tabs[0]
+
 		a = document.createElement("a")
 		a.href = tab.url
 
-		updateSiteName = (siteName = null) ->
+		siteName = null
+		if /vtexcommerce/.test(a.hostname)
+			parts = a.hostname.split('.')
+			siteName = (if parts[0] is "www" or parts[0] is "loja" then parts[1] else parts[0])
+		else if jsnomeSite?
+			siteName = jsnomeSite
+		else
+			parts = a.hostname.split('.')
+			siteName = (if parts[0] is "www" or parts[0] is "loja" then parts[1] else parts[0])
 
-			if siteName is null
-				if /vtexcommerce/.test(a.hostname)
-					parts = a.hostname.split('.')
-					siteName = (if parts[0] is "www" then parts[1] else parts[0])
-				else if jsnomeSite?
-					siteName = jsnomeSite
-				else
-					parts = a.hostname.split('.')
-					siteName = (if parts[0] is "www" then parts[1] else parts[0])
-#				else
-#					alert('Site desconhecido.')
-#					$('#env a').addClass('pure-button-disabled')
-#					callback()
-#					return
-
-			$('#env').data('siteName', siteName)
-
-		getSiteName = ->
-			$("#env").data('siteName')
+		isVtex = ->
+			!(siteName in ['', null, undefined])
 
 		changeVtexEnv = (env, callback) ->
-			siteName = getSiteName()
-
 			url = a.protocol + "//" + siteName + "." + env + ".com.br" + a.pathname + a.search + a.hash
 			chrome.tabs.update tab.id, url: url
-
 			callback()
 
-		refresh = ->
-			if getSiteName() in ['', null, undefined]
-				$('#env a').addClass('pure-button-disabled')
+		refreshSiteName = ->
+			if isVtex()
+				$('#sitename').text(siteName).removeClass('warning')
 			else
-				$('#env a').removeClass('pure-button-disabled')
+				$('#sitename').text('desconhecido').addClass('warning')
 
+		refreshEnv = ->
+			if isVtex()
+				$('#env a').removeClass('pure-button-disabled')
+			else
+				$('#env a').addClass('pure-button-disabled')
+
+		refreshCookies = ->
 			chrome.cookies.getAll {url: tab.url}, (cookies) ->
 				section = $('#cookies')
 
@@ -57,16 +53,22 @@ $(document).ready ->
 						else #when 0, "0", "Value=0"
 							status.text('enabled').addClass('enabled')
 
-		$(".env-change").on "click", ->
-			unless $(this).hasClass('pure-button-disabled')
-				changeVtexEnv $(this).data("env"), ->
-					window.close()
+		refresh = ->
+			refreshSiteName()
+			refreshEnv()
+			refreshCookies()
 
-		$('#cookies .action').on 'click', ->
-			value = if $(this).hasClass('enable') then 'Value=0' else 'Value=1'
-			name = $(this).closest('.cookie').data('cookieName')
-			chrome.cookies.set {url: tab.url, name: name, value: value, expirationDate: moment().add('days', 7).unix()}
-			refresh()
+		bindActions = ->
+			$(".env-change").on "click", ->
+				unless $(this).hasClass('pure-button-disabled')
+					changeVtexEnv $(this).data("env"), ->
+						window.close()
 
-		updateSiteName()
+			$('#cookies .action').on 'click', ->
+				value = if $(this).hasClass('enable') then 'Value=0' else 'Value=1'
+				name = $(this).closest('.cookie').data('cookieName')
+				chrome.cookies.set {url: tab.url, name: name, value: value, expirationDate: moment().add('days', 7).unix()}
+				refresh()
+
 		refresh()
+		bindActions()
