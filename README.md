@@ -8,6 +8,10 @@ Available on [Chrome Web Store](https://chrome.google.com/webstore/detail/vtex-l
 Changelog
 ---------
 
+**Version 1.0.4**
+
+* New icon, by Rodrigo Muniz (thanks!)
+
 **Version 1.0.3**
 
 * Shows current siteName
