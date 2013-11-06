@@ -17,9 +17,7 @@
   "permissions": [
     "tabs",
     "cookies",
-    "*://*.vtex.com.br/*",
-    "*://*.vtexcommerce.com.br/*",
-    "*://*.vtexcommercestable.com.br/*",
-    "*://*.vtexcommercebeta.com.br/*"
+    "webRequest",
+    "*://*/*"
   ]
 }
