@@ -1,6 +1,6 @@
 {
   "name": "VTEX-Lens",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "readmeFilename": "README.md",
   "description": "Lens: VTEX Development Tools as Chrome Extension",
   "dependencies": {},
