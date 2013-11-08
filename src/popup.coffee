@@ -2,6 +2,8 @@ $(document).ready ->
 	chrome.tabs.query {active: true, currentWindow: true}, (tabs) ->
 		tab = tabs[0]
 
+		systems = {}
+
 		a = document.createElement("a")
 		a.href = tab.url
 
@@ -53,10 +55,20 @@ $(document).ready ->
 						else #when 0, "0", "Value=0"
 							status.text('enabled').addClass('enabled')
 
+		refreshSystems = ->
+			list = $('#app-list').empty()
+			for name, props of systems
+				title = $("<dt>#{name}</dt>")
+				desc = $('<dd></dd>')
+				for propName, propValue of props
+					desc.append $ "<p>#{propName}: #{propValue}</p>"
+				list.append(title, desc)
+
 		refresh = ->
 			refreshSiteName()
 			refreshEnv()
 			refreshCookies()
+			refreshSystems()
 
 		bindActions = ->
 			$(".env-change").on "click", ->
@@ -70,5 +82,20 @@ $(document).ready ->
 				chrome.cookies.set {url: tab.url, name: name, value: value, expirationDate: moment().add('days', 7).unix()}
 				refresh()
 
+		chrome.webRequest.onCompleted.addListener ((req) ->
+			headers = {}
+			headers[h.name] = h.value for h in req.responseHeaders
+
+			if appName = headers['X-VTEX-Router-Backend-App']
+				systems[appName] =
+					version: headers['X-VTEX-Router-Backend-Version']
+					environment: headers['X-VTEX-Router-Backend-Environment']
+
+				refreshSystems()
+
+		), {urls: ["*://*/*"], tabId: tab.id}, ["responseHeaders"]
+
 		refresh()
 		bindActions()
+
+		return

@@ -11,6 +11,7 @@ Changelog
 **Version 1.0.4**
 
 * New icon, by Rodrigo Muniz (thanks!)
+* New "Network" section, with information about VTEX Web Apps
 
 **Version 1.0.3**
 
