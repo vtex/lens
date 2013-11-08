@@ -8,7 +8,7 @@ Available on [Chrome Web Store](https://chrome.google.com/webstore/detail/vtex-l
 Changelog
 ---------
 
-**Version 1.0.4**
+**Version 1.1.0**
 
 * New icon, by Rodrigo Muniz (thanks!)
 * New "Network" section, with information about VTEX Web Apps
