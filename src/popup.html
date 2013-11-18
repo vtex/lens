@@ -14,10 +14,11 @@
 
   <main>
     <section id="curr">
-      <h2>Site: <span id="sitename"></span></h2>
+      <h2>Site: <span id="sitename" class="success"></span></h2>
+      <p class="show-not-vtex">Provavelmente, o site acessado n&atilde;o usa o sistema VTEX.</p>
     </section>
 
-    <section id="env" data-site-name="">
+    <section id="env" class="hide-not-vtex" data-site-name="">
       <h2>Mudar Environment</h2>
       <ul class="no-bullets">
         <li><a class="pure-button pure-button-primary block env-change" data-env="vtexcommerce" href="#">Ir para vtexcommerce</a></li>
@@ -27,7 +28,7 @@
       </ul>
     </section>
 
-    <section id="cookies">
+    <section id="cookies" class="hide-not-vtex">
       <h2>Cookies (tools.html)</h2>
 
       <ul>
@@ -44,7 +45,7 @@
       </ul>
     </section>
 
-    <section id="network">
+    <section id="network" class="hide-not-vtex">
       <h2>Network</h2>
 
       <dl id="app-list">

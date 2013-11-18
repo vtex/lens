@@ -2,12 +2,11 @@ $(document).ready ->
 	chrome.tabs.query {active: true, currentWindow: true}, (tabs) ->
 		tab = tabs[0]
 
-		systems = {}
-
 		a = document.createElement("a")
 		a.href = tab.url
 
-		siteName = null
+		systems = {}
+
 		if /vtexcommerce/.test(a.hostname)
 			parts = a.hostname.split('.')
 			siteName = (if parts[0] is "www" or parts[0] is "loja" then parts[1] else parts[0])
@@ -18,18 +17,34 @@ $(document).ready ->
 			siteName = (if parts[0] is "www" or parts[0] is "loja" then parts[1] else parts[0])
 
 		isVtex = ->
-			!(siteName in ['', null, undefined])
+			Object.keys(systems).length > 0
 
 		changeVtexEnv = (env, callback) ->
 			url = a.protocol + "//" + siteName + "." + env + ".com.br" + a.pathname + a.search + a.hash
 			chrome.tabs.update tab.id, url: url
 			callback()
 
-		refreshSiteName = ->
+		refreshSystems = ->
+			chrome.runtime.sendMessage {service: 'systems', hostname: a.hostname}, (response) =>
+				systems = response
+
+				list = $('#app-list').empty()
+				for name, props of systems
+					title = $("<dt>#{name}</dt>")
+					desc = $('<dd></dd>')
+					for propName, propValue of props
+						desc.append $ "<p>#{propName}: #{propValue}</p>"
+					list.append(title, desc)
+
+		refreshVtex = ->
 			if isVtex()
 				$('#sitename').text(siteName).removeClass('warning')
+				$('.hide-not-vtex').show()
+				$('.show-not-vtex').hide()
 			else
 				$('#sitename').text('desconhecido').addClass('warning')
+				$('.hide-not-vtex').hide()
+				$('.show-not-vtex').show()
 
 		refreshEnv = ->
 			if isVtex()
@@ -55,20 +70,11 @@ $(document).ready ->
 						else #when 0, "0", "Value=0"
 							status.text('enabled').addClass('enabled')
 
-		refreshSystems = ->
-			list = $('#app-list').empty()
-			for name, props of systems
-				title = $("<dt>#{name}</dt>")
-				desc = $('<dd></dd>')
-				for propName, propValue of props
-					desc.append $ "<p>#{propName}: #{propValue}</p>"
-				list.append(title, desc)
-
 		refresh = ->
-			refreshSiteName()
+			refreshSystems()
+			refreshVtex()
 			refreshEnv()
 			refreshCookies()
-			refreshSystems()
 
 		bindActions = ->
 			$(".env-change").on "click", ->
@@ -82,20 +88,6 @@ $(document).ready ->
 				chrome.cookies.set {url: tab.url, name: name, value: value, expirationDate: moment().add('days', 7).unix()}
 				refresh()
 
-		chrome.webRequest.onCompleted.addListener ((req) ->
-			headers = {}
-			headers[h.name] = h.value for h in req.responseHeaders
-
-			if appName = headers['X-VTEX-Router-Backend-App']
-				systems[appName] =
-					version: headers['X-VTEX-Router-Backend-Version']
-					environment: headers['X-VTEX-Router-Backend-Environment']
-
-				refreshSystems()
-
-		), {urls: ["*://*/*"], tabId: tab.id}, ["responseHeaders"]
-
-		refresh()
 		bindActions()
-
-		return
+		refresh()
+		setInterval (->refresh()), 200

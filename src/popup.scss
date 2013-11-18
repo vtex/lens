@@ -2,8 +2,9 @@ body {
   padding-left: 10px;
   padding-right: 10px;
   width: 400px;
-  min-height: 400px;
-  font-family: Helvetica, Ubuntu, Arial, sans-serif;
+  min-height: 100px;
+  max-height: 600px;
+  font-family: Ubuntu, Helvetica, Arial, sans-serif;
   word-wrap: break-word;
 }
 
@@ -30,6 +31,10 @@ h1 {
     padding-top: 5px;
     margin-top: 5px;
   }
+}
+
+.success {
+  color: rgb(28, 184, 65);
 }
 
 .warning {
