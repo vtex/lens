@@ -8,6 +8,12 @@ Available on [Chrome Web Store](https://chrome.google.com/webstore/detail/vtex-l
 Changelog
 ---------
 
+**Version 1.2.0**
+
+* Background page to track system versions
+* Better detection of non-VTEX sites (using the `systems` object)
+* Hide stuff when not a VTEX site
+
 **Version 1.1.0**
 
 * New icon, by Rodrigo Muniz (thanks!)
