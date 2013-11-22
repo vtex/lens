@@ -1,93 +1,70 @@
 $(document).ready ->
-	chrome.tabs.query {active: true, currentWindow: true}, (tabs) ->
-		tab = tabs[0]
 
-		a = document.createElement("a")
-		a.href = tab.url
-
-		systems = {}
-
-		if /vtexcommerce/.test(a.hostname)
-			parts = a.hostname.split('.')
-			siteName = (if parts[0] is "www" or parts[0] is "loja" then parts[1] else parts[0])
-		else if jsnomeSite?
-			siteName = jsnomeSite
-		else
-			parts = a.hostname.split('.')
-			siteName = (if parts[0] is "www" or parts[0] is "loja" then parts[1] else parts[0])
-
-		isVtex = ->
-			Object.keys(systems).length > 0
-
-		changeVtexEnv = (env, callback) ->
+	changeEnv = (env) ->
+		TabService (tab) ->		
+			a = document.createElement("a")
+			a.href = tab.url
 			url = a.protocol + "//" + siteName + "." + env + ".com.br" + a.pathname + a.search + a.hash
 			chrome.tabs.update tab.id, url: url
-			callback()
+			window.close()
 
-		refreshSystems = ->
-			chrome.runtime.sendMessage {service: 'systems', hostname: a.hostname}, (response) =>
-				systems = response
+	changeCookie = (name, value) ->
+		TabService (tab) ->
+			week = parseInt((new Date/1000) + 7*24*60*60)
+			chrome.cookies.set {url: tab.url, name: name, value: value, expirationDate: week} 
+			CookiesService showCookies
 
-				list = $('#app-list').empty()
-				for name, props of systems
-					title = $("<dt>#{name}</dt>")
-					desc = $('<dd></dd>')
-					for propName, propValue of props
-						desc.append $ "<p>#{propName}: #{propValue}</p>"
-					list.append(title, desc)
+	showVersions = (versions) ->
+		list = $('#app-list').empty()
+		for name, props of versions
+			title = $("<dt>#{name}</dt>")
+			desc = $('<dd></dd>')
+			for propName, propValue of props
+				desc.append $ "<p>#{propName}: #{propValue}</p>"
+			list.append(title, desc)
 
-		refreshVtex = ->
-			if isVtex()
-				$('#sitename').text(siteName).removeClass('warning')
+	showSiteInfo = (isVtex) ->
+		if isVtex
+			SiteNameService (siteName) ->
+				$('#sitename').removeClass('warning')
+				$('#sitename').text(siteName) if $('#sitename').text() isnt siteName
 				$('.hide-not-vtex').show()
 				$('.show-not-vtex').hide()
-			else
-				$('#sitename').text('desconhecido').addClass('warning')
-				$('.hide-not-vtex').hide()
-				$('.show-not-vtex').show()
+		else
+			$('#sitename').text('desconhecido').addClass('warning')
+			$('.hide-not-vtex').hide()
+			$('.show-not-vtex').show()
 
-		refreshEnv = ->
-			if isVtex()
-				$('#env a').removeClass('pure-button-disabled')
-			else
-				$('#env a').addClass('pure-button-disabled')
+	showCookies = (cookies) ->
+		section = $('#cookies')
 
-		refreshCookies = ->
-			chrome.cookies.getAll {url: tab.url}, (cookies) ->
-				section = $('#cookies')
+		section.find('li').each (i, el) ->
+			$el = $(el)
+			name = $el.data('cookieName')
+			id = $el.attr('id')
+			status = section.find('#' + id).find('.status')
+			status.removeClass('enabled disabled')
+			if cookies[name] in [1, "1", "Value=1"]
+				status.text('disabled').addClass('disabled')
+			else # in [0, "0", "Value=0"]
+				status.text('enabled').addClass('enabled')
 
-				cookiesObj = {}
-				cookies.forEach (c) ->
-					cookiesObj[c.name] = c
+	refresh = ->
+		VersionsService showVersions
+		CookiesService showCookies
+		IsVtexService showSiteInfo
 
-				section.find('li').each (i, el) ->
-					name = $(el).data('cookieName')
-					id = $(el).attr('id')
-					status = section.find('#' + id).find('.status').removeClass('enabled disabled unknown')
-					switch cookiesObj[name]?.value
-						when 1, "1", "Value=1"
-							status.text('disabled').addClass('disabled')
-						else #when 0, "0", "Value=0"
-							status.text('enabled').addClass('enabled')
+	# bind actions
+	$(".env-change").on "click", ->
+		unless $(this).hasClass('pure-button-disabled')
+			env = $(this).data("env")
+			changeEnv(env)
 
-		refresh = ->
-			refreshSystems()
-			refreshVtex()
-			refreshEnv()
-			refreshCookies()
+	$('#cookies .action').on 'click', ->
+		value = if $(this).hasClass('enable') then 'Value=0' else 'Value=1'
+		name = $(this).closest('.cookie').data('cookieName')
+		changeCookie(name, value)
 
-		bindActions = ->
-			$(".env-change").on "click", ->
-				unless $(this).hasClass('pure-button-disabled')
-					changeVtexEnv $(this).data("env"), ->
-						window.close()
-
-			$('#cookies .action').on 'click', ->
-				value = if $(this).hasClass('enable') then 'Value=0' else 'Value=1'
-				name = $(this).closest('.cookie').data('cookieName')
-				chrome.cookies.set {url: tab.url, name: name, value: value, expirationDate: moment().add('days', 7).unix()}
-				refresh()
-
-		bindActions()
-		refresh()
-		setInterval (->refresh()), 200
+	refresh()
+	setInterval refresh, 200
+	alert('oi')
