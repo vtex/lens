@@ -8,7 +8,7 @@ Available on [Chrome Web Store](https://chrome.google.com/webstore/detail/vtex-l
 Changelog
 ---------
 
-**Version 1.3**
+**Version 1.3.0**
 
 * Can now disable client CSS
 * Can now toggle debugjs2 querystring
