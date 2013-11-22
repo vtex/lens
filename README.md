@@ -8,6 +8,11 @@ Available on [Chrome Web Store](https://chrome.google.com/webstore/detail/vtex-l
 Changelog
 ---------
 
+**Version 1.2.1**
+
+* Refactor: popup.coffee now asks for info from services.coffee, which may ask Chrome or background.coffee (via messages)
+* Remove Moment dependency 
+
 **Version 1.2.0**
 
 * Background page to track system versions
