@@ -11,7 +11,10 @@
   },
   "default_locale": "en",
   "background": {
-    "scripts": ["build/background.js"]
+    "scripts": [
+      "build/lib/uri.min.js",
+      "build/background.js"
+      ]
   },
   "browser_action": {
     "default_icon": "icons/icon48.png",
@@ -21,6 +24,7 @@
     "tabs",
     "cookies",
     "webRequest",
+    "webRequestBlocking",
     "*://*/*"
   ]
 }
