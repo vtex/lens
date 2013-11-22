@@ -12,9 +12,7 @@ root.TabService = (callback) ->
 
 root.VersionsService = (callback) ->
 	TabService (tab) ->
-		a = document.createElement("a")
-		a.href = tab.url
-		chrome.runtime.sendMessage {service: 'versions', hostname: a.hostname}, (response) ->	
+		chrome.runtime.sendMessage {service: 'versions', hostname: URI(tab.url).hostname()}, (response) ->	
 			callback(response)
 
 root.CookiesService = (callback) ->
@@ -26,23 +24,28 @@ root.CookiesService = (callback) ->
 
 root.IsVtexService = (callback) ->
 	TabService (tab) ->
-		a = document.createElement("a")
-		a.href = tab.url
-		chrome.runtime.sendMessage {service: 'isVtex', hostname: a.hostname}, (response) ->	
+		chrome.runtime.sendMessage {service: 'isVtex', hostname: URI(tab.url).hostname()}, (response) ->	
 			callback(response)
 
 root.SiteNameService = (callback) ->
 	TabService (tab) ->
-		a = document.createElement("a")
-		a.href = tab.url
+		uri = URI(tab.url)
 
-		if /vtexcommerce/.test(a.hostname)
-			parts = a.hostname.split('.')
+		if /vtexcommerce/.test(uri.hostname())
+			parts = uri.hostname().split('.')
 			siteName = (if parts[0] is "www" or parts[0] is "loja" then parts[1] else parts[0])
 		else if jsnomeSite?
 			siteName = jsnomeSite
 		else
-			parts = a.hostname.split('.')
+			# ToDo melhorar
+			parts = uri.hostname().split('.')
 			siteName = (if parts[0] is "www" or parts[0] is "loja" then parts[1] else parts[0])
 
 		callback(siteName)
+
+root.ClientCssService = (callback) ->
+	chrome.runtime.sendMessage {service: 'clientCss'}, (response) ->	
+		callback(response)
+
+root.SetClientCssService = (value) ->
+	chrome.runtime.sendMessage {service: 'setClientCss', value: value}

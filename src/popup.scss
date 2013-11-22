@@ -1,3 +1,32 @@
+// Extending Pure
+
+.pure-button-success,
+.pure-button-error,
+.pure-button-warning,
+.pure-button-secondary {
+  color: white;
+  border-radius: 4px;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.pure-button-success {
+  background: rgb(28, 184, 65);
+}
+
+.pure-button-error {
+  background: rgb(202, 60, 60);
+}
+
+.pure-button-warning {
+  background: rgb(223, 117, 20);
+}
+
+.pure-button-secondary {
+  background: rgb(66, 184, 221);
+}
+
+// Lens
+
 body {
   padding-left: 10px;
   padding-right: 10px;
@@ -41,57 +70,28 @@ h1 {
   color: rgb(223, 117, 20);
 }
 
-#cookies {
+#toggles {
 
-  .status.unknown {
-    color: gray;
-  }
-
-  .status.enabled {
+  .enabled {
+    .status.disabled {display:none;}
+    .status.enabled {
     color: rgb(28, 184, 65);
-
-    ~ .action.enable {
-      display: none;
+      ~ .action.enable {
+        display: none;
+      }
     }
   }
 
-  .status.disabled {
+  .disabled {
+    .status.enabled {display:none;}
+    .status.disabled {
     color: rgb(202, 60, 60);
-
-    ~ .action.disable {
-      display: none;
+      ~ .action.disable {
+        display: none;
+      }
     }
   }
 
+  .action{float:right;} 
 }
 
-#network {
-  dt {
-    font-weight: bold;
-  }
-}
-
-.pure-button-success,
-.pure-button-error,
-.pure-button-warning,
-.pure-button-secondary {
-  color: white;
-  border-radius: 4px;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-}
-
-.pure-button-success {
-  background: rgb(28, 184, 65);
-}
-
-.pure-button-error {
-  background: rgb(202, 60, 60);
-}
-
-.pure-button-warning {
-  background: rgb(223, 117, 20);
-}
-
-.pure-button-secondary {
-  background: rgb(66, 184, 221);
-}

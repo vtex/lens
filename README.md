@@ -8,6 +8,13 @@ Available on [Chrome Web Store](https://chrome.google.com/webstore/detail/vtex-l
 Changelog
 ---------
 
+**Version 1.3**
+
+* Can now disable client CSS
+* Can now toggle debugjs2 querystring
+* Now shows io.vtex versions
+* Adds URI.js, for manipulating URIs
+
 **Version 1.2.1**
 
 * Refactor: popup.coffee now asks for info from services.coffee, which may ask Chrome or background.coffee (via messages)
