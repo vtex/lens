@@ -2,6 +2,11 @@ $(document).ready ->
 
 	clientCss = true
 
+	changeUrl = (url) ->
+		TabService (tab) ->
+			chrome.tabs.update tab.id, url: url
+			window.close()
+
 	changeEnv = (env) ->
 		TabService (tab) ->		
 			SiteNameService (siteName) ->
@@ -71,6 +76,9 @@ $(document).ready ->
 		IsVtexService showSiteInfo
 
 	# bind actions
+	$('#version').on 'click', ->
+		changeUrl 'https://github.com/vtex/lens#changelog'
+	
 	$(".env-change").on "click", ->
 		unless $(this).hasClass('pure-button-disabled')
 			env = $(this).data("env")
