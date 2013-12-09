@@ -75,6 +75,18 @@ $(document).ready ->
 		CookiesService showCookies
 		IsVtexService showSiteInfo
 
+	# goAdmin = ->
+	# 	TabService (tab) ->
+	# 		chrome.tabs.executeScript tab.id, code: """
+	# 			console.log(skuJson)
+	# 			if(skuJson && skuJson.productId){
+	# 				window.location = '/admin/Site/sku.aspx?IdProduto=' + skuJson.productId;
+	# 			} else {
+	# 				alert('Não foi encontrado o productId!');
+	# 			}
+	# 			"""
+	# 		window.close()
+
 	# bind actions
 	$('#version').on 'click', ->
 		changeUrl 'https://github.com/vtex/lens#changelog'
@@ -83,6 +95,8 @@ $(document).ready ->
 		unless $(this).hasClass('pure-button-disabled')
 			env = $(this).data("env")
 			changeEnv(env)
+
+	# $('.go-admin').on 'click', goAdmin
 
 	$('.cookie .action').on 'click', ->
 		key = $(this).closest('.cookie').data('cookieName')
@@ -99,4 +113,7 @@ $(document).ready ->
 		SetClientCssService value
 
 	refresh()
-	setInterval refresh, 200
+	
+	chrome.runtime.onMessage.addListener (request, sender, sendResponse) =>
+		if request.message == 'refresh'
+			refresh()

@@ -27,6 +27,7 @@ chrome.webRequest.onCompleted.addListener ((request) ->
 
 		if appName
 			versions[uri.hostname()][appName] = headers['X-VTEX-Router-Backend-Version'] + ' ' + headers['X-VTEX-Router-Backend-Environment']
+			chrome.runtime.sendMessage {message: 'refresh'}
 
 		match = request.url.match(/https?:\/\/io\.vtex\.com\.br\/([^\/]*)\/([^\/]*)\/(.*)/)
 		# match[1] == front-portal-plugins
