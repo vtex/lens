@@ -8,6 +8,10 @@ Available on [Chrome Web Store](https://chrome.google.com/webstore/detail/vtex-l
 Changelog
 ---------
 
+**Version 1.3.1**
+
+* Change setInterval to listening to refresh message
+
 **Version 1.3.0**
 
 * Can now disable client CSS
