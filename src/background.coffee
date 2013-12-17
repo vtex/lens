@@ -24,9 +24,15 @@ chrome.webRequest.onCompleted.addListener ((request) ->
 		headers[h.name] = h.value for h in request.responseHeaders
 
 		appName = headers['X-VTEX-Router-Backend-App']
+		version = headers['X-VTEX-Router-Backend-Version']
+		environment = headers['X-VTEX-Router-Backend-Environment']
 
 		if appName
-			versions[uri.hostname()][appName] = headers['X-VTEX-Router-Backend-Version'] + ' ' + headers['X-VTEX-Router-Backend-Environment']
+			if not version
+				# The -Version header sometimes is bundled with the -App header
+				# "portal - v1.0.22"
+				[appName, version] = appName.split(' - ')
+			versions[uri.hostname()][appName] = "#{version} #{environment}"
 			chrome.runtime.sendMessage {message: 'refresh'}
 
 		match = request.url.match(/https?:\/\/io\.vtex\.com\.br\/([^\/]*)\/([^\/]*)\/(.*)/)
