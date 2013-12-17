@@ -8,6 +8,10 @@ Available on [Chrome Web Store](https://chrome.google.com/webstore/detail/vtex-l
 Changelog
 ---------
 
+**Version 1.3.2**
+
+* Deal with merged headers for -App and -Version
+
 **Version 1.3.1**
 
 * Change setInterval to listening to refresh message
