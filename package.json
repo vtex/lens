@@ -1,6 +1,6 @@
 {
   "name": "VTEX-Lens",
-  "version": "1.3.2",
+  "version": "1.4.0",
   "readmeFilename": "README.md",
   "description": "Lens: VTEX Development Tools as Chrome Extension",
   "dependencies": {},
@@ -9,6 +9,12 @@
     "url": "git://github.com/vtex/lens.git"
   },
   "author": "Guilherme Berger <guilherme.berger@gmail.com>",
+  "contributors": [
+    {
+      "name": "Breno Calazans",
+      "email": "brenocalazans@gmail.com"
+    }
+  ],
   "license": "MIT",
   "devDependencies": {
     "grunt": "~0.4.1",
