@@ -28,12 +28,12 @@ module.exports = (grunt) ->
 					ext: '.js'
 				]
 
-		sass:
+		less:
 			main:
 				files: [
 					expand: true
 					cwd: 'src/'
-					src: ['**/*.scss', '**/*.sass']
+					src: ['**/*.less']
 					dest: 'build/<%= relativePath %>/'
 					ext: '.css'
 				]
@@ -56,7 +56,7 @@ module.exports = (grunt) ->
 			'dist/lens.zip': ['manifest.json', 'build/**/*', 'icons/**/*', '_locales/**/*']
 
 		concurrent:
-			transform: ['copy:main', 'coffee', 'sass']
+			transform: ['copy:main', 'coffee', 'less']
 
 	grunt.loadNpmTasks name for name of pkg.devDependencies when name[0..5] is 'grunt-'
 
