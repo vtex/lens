@@ -25,6 +25,8 @@
     "cookies",
     "webRequest",
     "webRequestBlocking",
-    "*://*/*"
+    "*://*/*",
+    "http://fonts.googleapis.com/",
+    "http://maxcdn.bootstrapcdn.com/"
   ]
 }

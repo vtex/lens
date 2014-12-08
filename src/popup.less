@@ -1,0 +1,74 @@
+@import "lib/variables";
+
+// Lens
+
+body {
+  width: 500px;
+  min-height: 100px;
+  max-height: 800px;
+  word-wrap: break-word;
+}
+
+#version {
+  cursor: pointer;
+}
+
+.hero {
+  padding: 0 0 50px;
+}
+
+.clipper {
+  height: 50px;
+}
+
+.tab-control {
+  margin-top: -35px;
+}
+
+.show-not-vtex {
+  margin: -50px 0 40px;
+}
+
+.block {
+  display: block;
+}
+
+.tab-content {
+  padding: 15px 0;
+}
+
+.nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus {
+  background-color: transparent;
+  border: 1px solid @lab-blue-light;
+  color: @lab-black;
+}
+
+.input-group input {
+  border-bottom-width: 3px;
+  height: 36px;
+}
+
+#cookies {
+  li.disabled {
+    .btn {
+      color: @lab-blue-light;      
+    }
+  }
+
+  .status {
+    float: left;
+  }
+
+  .enabled {
+    .status.disabled {
+      display: none;
+    }
+  }
+
+  .disabled {    
+    .status.enabled {
+      display: none;
+    }
+  }
+}
+

@@ -1,77 +1,115 @@
 <!doctype html>
-
 <head>
-  <link rel="stylesheet" href="lib/pure.min.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Montserrat|Source+Sans+Pro:200,400,600">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="lib/tortin.css">
   <link rel="stylesheet" href="popup.css">
 </head>
-
-
 <body>
 
-  <header>
-    <h1>Lens <em id="version">(v<!-- VERSION --></a>)</em></h1>
-  </header>
+  <div class="hero">
+    <div class="container">
+      <header>
+        <h1 id="sitename"></h1>
+      </header>
+    </div>
+  </div>
 
-  <main>
+  <div class="clipper"></div>
 
-    <section id="curr">
-      <h2>Site: <span id="sitename" class="success"></span></h2>
-      <p class="show-not-vtex">Provavelmente, o site acessado n&atilde;o usa o sistema VTEX.</p>
+  <div class="content container">
+    <section id="curr" class="show-not-vtex text-center">
+        <h2>Provavelmente, o site acessado n&atilde;o usa o sistema VTEX.</h2>
     </section>
 
-    <section id="env" class="hide-not-vtex" data-site-name="">
-      <h2>Mudar Ambiente</h2>
-        <a class="pure-button pure-button-primary block env-change" data-env="vtexcommerce" href="#">vtexcommerce</a>
-        <a class="pure-button pure-button-secondary block env-change" data-env="vtexcommercestable" href="#">vtexcommercestable</a>
-        <a class="pure-button pure-button-warning block env-change" data-env="vtexcommercebeta" href="#">vtexcommercebeta</a>
-        <a class="pure-button block env-change" data-env="vtexlocal" href="#">vtexlocal</a>
-    </section>
 
-    <section id="toggles" class="hide-not-vtex">
-      <h2>Toggles</h2>
-
-      <ul>
-        <li id="cjs" class="cookie enabled" data-cookie-name="SAFEMode">
-          Client JavaScript: 
-          <span class="status enabled">enabled</span>
-          <span class="status disabled">disabled</span>.
-          <a class="action enable" href="#">Click to enable.</a>
-          <a class="action disable" href="#">Click to disable.</a>
+    <div role="tabpanel" class="hide-not-vtex tab-control">
+      <!-- Nav tabs -->
+      <ul class="nav nav-pills" role="tablist">
+        <li role="presentation" class="active">
+          <a href="#versions" aria-controls="versions" role="tab" data-toggle="tab">Versions</a>
         </li>
-        <li id="sfe" class="cookie enabled" data-cookie-name="ShowFullError">
-          Show Friendly Error: 
-          <span class="status enabled">enabled</span>
-          <span class="status disabled">disabled</span>.
-          <a class="action enable" href="#">Click to enable.</a>
-          <a class="action disable" href="#">Click to disable.</a>
+        <li role="presentation">
+          <a href="#cookies" aria-controls="cookies" role="tab" data-toggle="tab">Cookies</a>
         </li>
-        <li id="djs" class="toggle disabled">
-          Debug JS: 
-          <span class="status enabled">enabled</span>
-          <span class="status disabled">disabled</span>.
-          <a class="action enable" href="#">Click to enable.</a>
-          <a class="action disable" href="#">Click to disable.</a>
+        <li role="presentation">
+          <a href="#enviroment" aria-controls="enviroment" role="tab" data-toggle="tab">Enviroment</a>
         </li>
-        <li id="ccss" class="toggle enabled">
-          Client CSS: 
-          <span class="status enabled">enabled</span>
-          <span class="status disabled">disabled</span>.
-          <a class="action enable" href="#">Click to enable.</a>
-          <a class="action disable" href="#">Click to disable.</a>
+        <li role="presentation">
+          <a href="#gallery" aria-controls="gallery" role="tab" data-toggle="tab">Gallery</a>
         </li>
       </ul>
-    </section>
 
-    <section id="network" class="hide-not-vtex">
-      <h2>Network</h2>
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="versions">
+          <table id="app-list" class="table">
+            <thead><tr><th>App</th><th>Version</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="cookies">
+          <ul class="list-unstyled">
+            <li id="cjs" class="cookie enabled" data-cookie-name="SAFEMode">
+              <a class="btn btn-default btn-lg btn-block">
+                <span class="status enabled"><i class="fa fa-check-square-o"></i></span>
+                <span class="status disabled"><i class="fa fa-square-o"></i></span>
+                Client JavaScript
+              </a>
+            </li>
+            <li id="sfe" class="cookie enabled" data-cookie-name="ShowFullError">
+              <a class="btn btn-default btn-lg btn-block">
+                <span class="status enabled"><i class="fa fa-check-square-o"></i></span>
+                <span class="status disabled"><i class="fa fa-square-o"></i></span>
+                Show Friendly Error
+              </a>
+            </li>
+            <li id="djs" class="toggle disabled">
+              <a class="btn btn-default btn-lg btn-block">
+                <span class="status enabled"><i class="fa fa-check-square-o"></i></span>
+                <span class="status disabled"><i class="fa fa-square-o"></i></span>
+                Debug JS
+              </a>
+            </li>
+            <li id="ccss" class="toggle enabled">
+              <a class="btn btn-default btn-lg btn-block">
+                <span class="status enabled"><i class="fa fa-check-square-o"></i></span>
+                <span class="status disabled"><i class="fa fa-square-o"></i></span>
+                Client CSS
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="enviroment">
+          <a class="btn btn-default btn-lg btn-block env-change" data-env="vtexcommerce" href="#">vtexcommerce</a>
+          <a class="btn btn-default btn-lg btn-block env-change" data-env="vtexcommercestable" href="#">vtexcommercestable</a>
+          <a class="btn btn-default btn-lg btn-block env-change" data-env="vtexcommercebeta" href="#">vtexcommercebeta</a>
+          <a class="btn btn-default btn-lg btn-block env-change" data-env="vtexlocal" href="#">vtexlocal</a>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="gallery">
 
-      <ul id="app-list">
-        
-      </ul>
-    </section>
-  </main>
+          <form class="form-group" class="form-workspace">
+            <label for="workspace">Workspace</label>
+            <div class="input-group">
+              <input type="text" class="form-control" id="workspace" value="">
+              <span class="input-group-btn">
+                <input class="btn btn-default" type="submit" value="Set!">
+              </span>
+            </div>
+          </form>
 
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer text-right">
+    <small id="version">(v<!-- VERSION -->)</small>
+  </div>
   <script src="lib/jquery.min.js"></script>
+  <script src="lib/bootstrap.js"></script>
   <script src="lib/uri.min.js"></script>
   <script src="services.js"></script>
   <script src="popup.js"></script>

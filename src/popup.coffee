@@ -29,9 +29,9 @@ $(document).ready ->
 			window.close()
 
 	showVersions = (versions) ->
-		list = $('#app-list').empty()
+		list = $('#app-list tbody').empty()
 		for name, version of versions
-			list.append($("<li><strong>#{name}</strong>: #{version}</li>"))
+			$(list).append($("<tr><strong><td>#{name}</td><td>#{version}</td></tr>"))
 
 	showSiteInfo = (isVtex) ->
 		if isVtex
@@ -43,14 +43,14 @@ $(document).ready ->
 
 			TabService (tab) ->
 				uri = URI(tab.url)
-				$('#djs').removeClass('enabled disabled')
+				$('#djs .btn').removeClass('enabled disabled')
 				if uri.search(true)["debugjs2"] == "true"
 					$('#djs').addClass('enabled')
 				else
 					$('#djs').addClass('disabled')
 
 			ClientCssService (clientCss) ->
-				$('#ccss').removeClass('enabled disabled')
+				$('#ccss .btn').removeClass('enabled disabled')
 				if clientCss
 					$('#ccss').addClass('enabled')
 				else
@@ -61,7 +61,7 @@ $(document).ready ->
 			$('.hide-not-vtex').hide()
 			$('.show-not-vtex').show()
 
-	showCookies = (cookies) ->
+	showCookies = (cookies) ->		
 		$('.cookie').each (i, el) ->
 			$el = $(el).removeClass('enabled disabled')
 			name = $el.data('cookieName')
@@ -70,22 +70,12 @@ $(document).ready ->
 			else # in [0, "0", "Value=0"]
 				$el.addClass('enabled')
 
+		$('#workspace').val(cookies['vtex_workspace']);
+
 	refresh = ->
 		VersionsService showVersions
 		CookiesService showCookies
 		IsVtexService showSiteInfo
-
-	# goAdmin = ->
-	# 	TabService (tab) ->
-	# 		chrome.tabs.executeScript tab.id, code: """
-	# 			console.log(skuJson)
-	# 			if(skuJson && skuJson.productId){
-	# 				window.location = '/admin/Site/sku.aspx?IdProduto=' + skuJson.productId;
-	# 			} else {
-	# 				alert('Não foi encontrado o productId!');
-	# 			}
-	# 			"""
-	# 		window.close()
 
 	# bind actions
 	$('#version').on 'click', ->
@@ -96,21 +86,29 @@ $(document).ready ->
 			env = $(this).data("env")
 			changeEnv(env)
 
-	# $('.go-admin').on 'click', goAdmin
-
-	$('.cookie .action').on 'click', ->
-		key = $(this).closest('.cookie').data('cookieName')
-		value = if $(this).hasClass('enable') then 'Value=0' else 'Value=1'
+	$('.cookie .btn').on 'click', ->
+		cookieElem = $(this).closest('.cookie')
+		key = $(cookieElem).data('cookieName')
+		value = if $(cookieElem).hasClass('disabled') then 'Value=0' else 'Value=1'
 		changeCookie(key, value)
 
-	$('#djs .action').on 'click', ->
+	$('#djs .btn').on 'click', ->
+		cookieElem = $(this).closest('.cookie')
 		key = 'debugjs2'
-		value = if $(this).hasClass('enable') then 'true' else 'false'
+		value = if $(cookieElem).hasClass('disabled') then 'true' else 'false'
 		changeQueryString(key, value)
 
-	$('#ccss .action').on 'click', ->
-		value = if $(this).hasClass('enable') then true else false
+	$('#ccss .btn').on 'click', ->
+		cookieElem = $(this).closest('.cookie')
+		value = if $(cookieElem).hasClass('disabled') then true else false
 		SetClientCssService value
+
+	setWorkspace = (ev) ->
+		ev.preventDefault()
+		changeCookie('vtex_workspace', $('#workspace').val())
+
+	$('#gallery .btn').on 'click', setWorkspace
+	$('.form-workspace').on 'submit', setWorkspace
 
 	refresh()
 	
