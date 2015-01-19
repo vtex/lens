@@ -1,6 +1,6 @@
 {
   "name": "VTEX Lens",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "manifest_version": 2,
   "description": "Lens: VTEX Development Tools as Chrome Extension",
   "homepage_url": "http://www.vtex.com.br",

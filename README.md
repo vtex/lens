@@ -8,6 +8,10 @@ Available on [Chrome Web Store](https://chrome.google.com/webstore/detail/vtex-l
 Changelog
 ---------
 
+**Version 1.4.1**
+
+* Change icon
+
 **Version 1.4.0**
 
 * Change layout
