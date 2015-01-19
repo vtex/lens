@@ -3,7 +3,7 @@
   "version": "1.4.1",
   "manifest_version": 2,
   "description": "Lens: VTEX Development Tools as Chrome Extension",
-  "homepage_url": "http://www.vtex.com.br",
+  "homepage_url": "http://www.github.com/vtex/lens",
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
