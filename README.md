@@ -8,6 +8,11 @@ Available on [Chrome Web Store](https://chrome.google.com/webstore/detail/vtex-l
 Changelog
 ---------
 
+**Version 1.4.2**
+
+* Tabs are now open on mouse over
+* Add scroll to app versions
+
 **Version 1.4.1**
 
 * Change icon
