@@ -78,6 +78,10 @@ $(document).ready ->
 		IsVtexService showSiteInfo
 
 	# bind actions
+	$('.tab-control .nav a').on 'click mouseenter', (e) ->
+		e.preventDefault()
+		$(this).tab('show')
+
 	$('#version').on 'click', ->
 		changeUrl 'https://github.com/vtex/lens#changelog'
 	
