@@ -24,7 +24,7 @@ root.CookiesService = (callback) ->
 
 root.IsVtexService = (callback) ->
 	TabService (tab) ->
-		chrome.runtime.sendMessage {service: 'isVtex', hostname: URI(tab.url).hostname()}, (response) ->	
+		chrome.runtime.sendMessage {service: 'isVtex', hostname: URI(tab.url).hostname()}, (response) ->
 			callback(response)
 
 root.SiteNameService = (callback) ->
@@ -34,10 +34,8 @@ root.SiteNameService = (callback) ->
 		if /vtexcommerce/.test(uri.hostname())
 			parts = uri.hostname().split('.')
 			siteName = (if parts[0] is "www" or parts[0] is "loja" then parts[1] else parts[0])
-		else if jsnomeSite?
-			siteName = jsnomeSite
 		else
-			# ToDo melhorar
+			# TODO melhorar
 			parts = uri.hostname().split('.')
 			siteName = (if parts[0] is "www" or parts[0] is "loja" then parts[1] else parts[0])
 
