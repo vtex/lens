@@ -31,7 +31,7 @@ root.SiteNameService = (callback) ->
 	TabService (tab) ->
 		uri = URI(tab.url)
 
-		if /vtexcommerce/.test(uri.hostname())
+		if /vtexcommerce/.test(uri.hostname()) or /myvtex/.test(uri.hostname())
 			parts = uri.hostname().split('.')
 			siteName = (if parts[0] is "www" or parts[0] is "loja" then parts[1] else parts[0])
 		else
