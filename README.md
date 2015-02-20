@@ -8,6 +8,12 @@ Available on [Chrome Web Store](https://chrome.google.com/webstore/detail/vtex-l
 Changelog
 ---------
 
+**Version 1.5.0**
+
+* Translate extension to Portuguese
+* Fix back-end apps versions
+* Support for myvtex.com domains
+
 **Version 1.4.2**
 
 * Tabs are now open on mouse over
