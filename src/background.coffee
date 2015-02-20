@@ -16,6 +16,8 @@ chrome.webRequest.onBeforeRequest.addListener ((request) ->
 ), {urls: ["*://*/*"]}, ["blocking"]
 
 chrome.webRequest.onCompleted.addListener ((request) ->
+	if request.tabId is -1 then return
+
 	chrome.tabs.get request.tabId, (tab) =>
 		uri = URI(tab.url)
 
