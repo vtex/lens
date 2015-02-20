@@ -7,6 +7,7 @@
 
 versions = {}
 clientCss = true
+isVtex = {}
 
 chrome.webRequest.onBeforeRequest.addListener ((request) ->
 	if !clientCss and request.url.indexOf('checkout-custom.css') != -1
@@ -19,6 +20,7 @@ chrome.webRequest.onCompleted.addListener ((request) ->
 		uri = URI(tab.url)
 
 		versions[uri.hostname()] or= {}
+		isVtex[uri.hostname()]   or= false
 
 		headers = {}
 		headers[h.name] = h.value for h in request.responseHeaders
@@ -26,6 +28,9 @@ chrome.webRequest.onCompleted.addListener ((request) ->
 		appName = headers['X-VTEX-Router-Backend-App']
 		version = headers['X-VTEX-Router-Backend-Version']
 		environment = headers['X-VTEX-Router-Backend-Environment']
+
+		if headers['X-Powered-by-VTEX-Janus-Edge']
+			isVtex[uri.hostname()] = true
 
 		if appName
 			if not version
@@ -48,7 +53,7 @@ chrome.runtime.onMessage.addListener (request, sender, sendResponse) =>
 	if request.service == 'versions'
 		sendResponse(versions[request.hostname] or {})
 	else if request.service == 'isVtex'
-		sendResponse(versions[request.hostname] && Object.keys(versions[request.hostname]).length > 0)
+		sendResponse(isVtex[request.hostname] or (versions[request.hostname] && Object.keys(versions[request.hostname]).length > 0))
 	else if request.service == 'clientCss'
 		sendResponse(clientCss)
 	else if request.service == 'setClientCss'
