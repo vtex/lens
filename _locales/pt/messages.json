@@ -3,36 +3,36 @@
 		"message": "App"
 	},
 	"version": {
-		"message": "Version"
+		"message": "Versão"
 	},
 	"versions": {
-		"message": "Versions"
+		"message": "Versões"
 	},
 	"cookies": {
 		"message": "Cookies"
 	},
 	"enviroment": {
-		"message": "Enviroment"
+		"message": "Ambiente"
 	},
 	"gallery": {
 		"message": "Gallery"
 	},
 	"unknown": {
-		"message": "Unknown"
+		"message": "Desconhecido"
 	},
 	"notVTEX": {
-		"message": "Probably this site does not use VTEX."
+		"message": "Provavelmente esse site não usa VTEX."
 	},
 	"showFriendlyError": {
-		"message": "Show Friendly Error"
+		"message": "Exibir erros amigáveis"
 	},
 	"debugJS": {
-		"message": "Debug JS"
+		"message": "Depurar JS"
 	},
 	"customJavascript": {
-		"message": "Custom Javascript"
+		"message": "Javascript customizado"
 	},
 	"customCSS": {
-		"message": "Custom CSS"
+		"message": "CSS customizado"
 	}
 }

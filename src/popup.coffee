@@ -57,7 +57,7 @@ $(document).ready ->
 					$('#ccss').addClass('disabled')
 
 		else
-			$('#sitename').text('desconhecido').addClass('warning')
+			$('#sitename').text(chrome.i18n.getMessage('unknown')).addClass('warning')
 			$('.hide-not-vtex').hide()
 			$('.show-not-vtex').show()
 
@@ -76,6 +76,11 @@ $(document).ready ->
 		VersionsService showVersions
 		CookiesService showCookies
 		IsVtexService showSiteInfo
+
+	# Translate HTML
+	for elem in $('*[data-i18n]')
+		key = $(elem).data('i18n')
+		$(elem).text(chrome.i18n.getMessage(key))
 
 	# bind actions
 	$('.tab-control .nav a').on 'click mouseenter', (e) ->

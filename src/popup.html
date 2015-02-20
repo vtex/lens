@@ -20,23 +20,23 @@
 
   <div class="content container">
     <section id="curr" class="show-not-vtex text-center">
-        <h2>Provavelmente, o site acessado n&atilde;o usa o sistema VTEX.</h2>
+        <h2 data-i18n="notVTEX"></h2>
     </section>
 
     <div role="tabpanel" class="hide-not-vtex tab-control">
       <!-- Nav tabs -->
       <ul class="nav nav-pills" role="tablist">
         <li role="presentation" class="active">
-          <a href="#versions" aria-controls="versions" role="tab">Versions</a>
+          <a href="#versions" aria-controls="versions" role="tab" data-i18n="versions"></a>
         </li>
         <li role="presentation">
-          <a href="#cookies" aria-controls="cookies" role="tab">Cookies</a>
+          <a href="#cookies" aria-controls="cookies" role="tab" data-i18n="cookies"></a>
         </li>
         <li role="presentation">
-          <a href="#enviroment" aria-controls="enviroment" role="tab">Enviroment</a>
+          <a href="#enviroment" aria-controls="enviroment" role="tab" data-i18n="enviroment"></a>
         </li>
         <li role="presentation">
-          <a href="#gallery" aria-controls="gallery" role="tab">Gallery</a>
+          <a href="#gallery" aria-controls="gallery" role="tab" data-i18n="gallery"></a>
         </li>
       </ul>
 
@@ -44,38 +44,38 @@
       <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="versions">
           <table id="app-list" class="table">
-            <thead><tr><th>App</th><th>Version</th></tr></thead>
+            <thead><tr><th data-i18n="app"></th><th data-i18n="version"></th></tr></thead>
             <tbody></tbody>
           </table>
         </div>
         <div role="tabpanel" class="tab-pane" id="cookies">
           <ul class="list-unstyled">
-            <li id="cjs" class="cookie enabled" data-cookie-name="SAFEMode">
-              <a class="btn btn-default btn-lg btn-block">
-                <span class="status enabled"><i class="fa fa-check-square-o"></i></span>
-                <span class="status disabled"><i class="fa fa-square-o"></i></span>
-                Client JavaScript
-              </a>
-            </li>
             <li id="sfe" class="cookie enabled" data-cookie-name="ShowFullError">
               <a class="btn btn-default btn-lg btn-block">
                 <span class="status enabled"><i class="fa fa-check-square-o"></i></span>
                 <span class="status disabled"><i class="fa fa-square-o"></i></span>
-                Show Friendly Error
+                <span data-i18n="showFriendlyError"></span>
               </a>
             </li>
             <li id="djs" class="toggle disabled">
               <a class="btn btn-default btn-lg btn-block">
                 <span class="status enabled"><i class="fa fa-check-square-o"></i></span>
                 <span class="status disabled"><i class="fa fa-square-o"></i></span>
-                Debug JS
+                <span data-i18n="debugJS"></span>
+              </a>
+            </li>
+            <li id="cjs" class="cookie enabled" data-cookie-name="SAFEMode">
+              <a class="btn btn-default btn-lg btn-block">
+                <span class="status enabled"><i class="fa fa-check-square-o"></i></span>
+                <span class="status disabled"><i class="fa fa-square-o"></i></span>
+                <span data-i18n="customJavascript"></span>
               </a>
             </li>
             <li id="ccss" class="toggle enabled">
               <a class="btn btn-default btn-lg btn-block">
                 <span class="status enabled"><i class="fa fa-check-square-o"></i></span>
                 <span class="status disabled"><i class="fa fa-square-o"></i></span>
-                Client CSS
+                <span data-i18n="customCSS"></span>
               </a>
             </li>
           </ul>
