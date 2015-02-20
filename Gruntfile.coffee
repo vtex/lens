@@ -5,7 +5,8 @@ module.exports = (grunt) ->
 	replacements =
 		'\<\!\-\- VERSION \-\-\>' : manifest.version
 
-	grunt.initConfig
+	configObj =
+		manifestVersion: manifest.version
 		relativePath: ''
 
 		clean:
@@ -53,11 +54,14 @@ module.exports = (grunt) ->
 				tasks: ['make']
 
 		zip:
-			'dist/lens.zip': ['manifest.json', 'build/**/*', 'icons/**/*', '_locales/**/*']
+			'long-format':
+				src: ['manifest.json', 'build/**/*', 'icons/**/*', '_locales/**/*']
+				dest: "dist/lens-<%= manifestVersion %>.zip"
 
 		concurrent:
 			transform: ['copy:main', 'coffee', 'less']
 
+	grunt.initConfig(configObj)
 	grunt.loadNpmTasks name for name of pkg.devDependencies when name[0..5] is 'grunt-'
 
 	grunt.registerTask 'make', ['clean', 'concurrent:transform', 'string-replace']
